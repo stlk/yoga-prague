@@ -115,18 +115,13 @@ def get_lessons(html_content: str, location_name: str):
 
 
 def get_location(location):
-    url_location = f"https://rezervace.dum-jogy.cz/rs/kalendar_vypis/zmena_mistnosti/{location}kalendar-vypis"
+    url_location = f"https://rezervace.dum-jogy.cz/rs/kalendar_vypis/zmena_mistnosti/{location}"
     response_location = session.post(url_location, headers=headers)
     return response_location.text
-    # Path("./dumjogy1.html").write_text(html_content)
-    # html_content = Path("./dumjogy.html").read_text()
 
 
 def get_lessons_for_all_locations():
     session.post(url_login, headers=headers, data=data_login)
-
-    # db.connect()
-    # db.create_tables([Activity])
 
     for location_name, location_id in locations.items():
         logging.info(f"Loading {location_name}")
@@ -136,14 +131,6 @@ def get_lessons_for_all_locations():
 
         json_data = json.dumps(lessons)
         Path(f"./output/data-dum-jogy-{location_id}.json").write_text(json_data)
-
-        # for data_dict in lessons:
-        #     try:
-        #         create_or_update_activity(data_dict)
-        #     except Exception:
-        #         logging.exception("failed to insert to DB")
-
-    # db.close()
 
 
 if __name__ == "__main__":
