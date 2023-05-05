@@ -1,6 +1,6 @@
 import type { V2_MetaFunction } from '@remix-run/cloudflare';
 import { useLoaderData } from '@remix-run/react';
-import { parseISO, format, isPast } from 'date-fns';
+import { parseISO, format } from 'date-fns';
 
 import { useState, memo, useMemo } from 'react';
 import { PlusIcon } from '@heroicons/react/20/solid';
@@ -28,8 +28,6 @@ export default function Example() {
   const { handleCheck, state } = useFilterReducer();
 
   const filters = useMemo(() => createFiltersFromClasses(days), [days]);
-
-  console.log(state);
 
   const filteredDays = useMemo(() => {
     return days
