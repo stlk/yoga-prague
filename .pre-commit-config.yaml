@@ -1,0 +1,64 @@
+repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.3.2
+    hooks:
+      - id: pyupgrade
+        args: ['--py39-plus', '--keep-runtime-typing']
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.4.0
+    hooks:
+      - id: add-trailing-comma
+        args: ['--py36-plus']
+
+  # Configuration for black exists in pyproject.toml,
+  # but we let pre-commit take care of the file filtering.
+  - repo: https://github.com/ambv/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        args: ['-l 119']
+
+  # Configuration for isort exists in pyproject.toml,
+  # but we let pre-commit take care of the file filtering.
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: end-of-file-fixer
+        exclude_types: [svg]
+      - id: trailing-whitespace
+        exclude_types: [svg]
+      - id: debug-statements
+
+  # Configuration for flake8 exists in setup.cfg,
+  # but we let pre-commit take care of the file filtering.
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-bugbear]
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.0-alpha.6
+    hooks:
+      - id: prettier
+        entry: prettier --write --single-quote --trailing-comma=all
+        files: "\\.(\
+          css|less|scss\
+          |graphql|gql\
+          |js|jsx\
+          |json\
+          |md|markdown|mdown|mkdn\
+          |mdx\
+          |ts|tsx\
+          |yaml|yml\
+          )$"

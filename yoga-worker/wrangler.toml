@@ -1,0 +1,26 @@
+name = "yoga-prague"
+
+workers_dev = true
+main = "./build/index.js"
+# https://developers.cloudflare.com/workers/platform/compatibility-dates
+compatibility_date = "2022-04-05"
+compatibility_flags = ["streams_enable_constructors"]
+
+kv_namespaces = [
+  { binding = "CLASSES", id = "f5c09aa849394427aeb02a0b7e635d77" }
+]
+
+[env.dev]
+kv_namespaces = [
+  { binding = "CLASSES", id = "b69a741ffd0c4eb5a3e535a6c6145b15", preview_id = "b69a741ffd0c4eb5a3e535a6c6145b15" }
+]
+
+[site]
+  bucket = "./public"
+
+[build]
+  command = "npm run build"
+
+
+[miniflare]
+kv_persist = "./data/"
