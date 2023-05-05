@@ -28,4 +28,5 @@ jobs:
           CF_NAMESPACE_ID: ${{ secrets.CF_NAMESPACE_ID }}
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
         run: |-
+          mkdir output
           pipenv run ./run.sh
