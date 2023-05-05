@@ -1,0 +1,32 @@
+name: Update data
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pipenv'
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pipenv
+          pipenv install
+      - name: Update README
+        env:
+          DUM_JOGY_PASSWORD: ${{ secrets.DUM_JOGY_PASSWORD }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_NAMESPACE_ID: ${{ secrets.CF_NAMESPACE_ID }}
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+        run: |-
+          pipenv run ./run.sh
